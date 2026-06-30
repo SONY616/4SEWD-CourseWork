@@ -1,0 +1,137 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #fdfcfb, #e2d1c3);
+  color: #333;
+  line-height: 1.6;
+}
+header {
+  background: linear-gradient(90deg, #ff6f61, #ff9966);
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+header h1 {
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+}
+nav a {
+  margin: 0 15px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+nav a:hover {
+  color: #ffe082;
+}
+.page {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+}
+.search-bar {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 2px solid #ff6f61;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.3s;
+}
+.search-bar:focus {
+  border-color: #ff9966;
+  box-shadow: 0 0 8px rgba(255, 111, 97, 0.5);
+}
+.grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 1rem;
+  width: 220px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+.card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.recipe-img {
+  max-width: 500px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+form label {
+  font-weight: 600;
+  color: #444;
+}
+form input, form textarea, form select {
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+form input:focus, form textarea:focus, form select:focus {
+  border-color: #ff6f61;
+  outline: none;
+}
+form button {
+  padding: 12px;
+  background: linear-gradient(90deg, #ff6f61, #ff9966);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+form button:hover {
+  background: linear-gradient(90deg, #ff9966, #ff6f61);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+table th, table td {
+  padding: 12px;
+  text-align: left;
+}
+table th {
+  background: #ff6f61;
+  color: white;
+}
+table tr:nth-child(even) {
+  background: #f9f9f9;
+}
