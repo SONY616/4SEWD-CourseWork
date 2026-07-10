@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <h1>Recipe Management System</h1>
+    <nav>
+      <a href="ingredients.html">Ingredients</a>
+      <a href="add-recipe.html">Add Recipe</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- Recipe List Page -->
+<section class="page" id="recipe-list">
+  <h2>All Recipes</h2>
+  <input type="text" placeholder="Search by name or difficulty..." class="search-bar">
+  
+  <div class="grid">
+    <!-- Chocolate Cake card -->
+    <a href="cakerecipe.html" class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbBHSHr8vQTCyFpRFDvF83cSvdA0ImUCiUFzI1igDf5Fo5ELR_qvCrH26a&s=10" alt="Chocolate Cake">
+      <h3>Chocolate Cake</h3>
+      <p>Category: Dessert</p>
+    </a>
+
+    <!-- Grilled Chicken card -->
+    <a href="chickenrecipe.html" class="card">
+      <img src="https://iowagirleats.com/wp-content/uploads/2025/06/Simple-Grilled-Chicken-Thighs-iowagirleats-Featured.jpg" alt="Grilled Chicken">
+      <h3>Grilled Chicken</h3>
+      <p>Category: Main Course</p>
+    </a>
+
+    <!-- Litti Chokha card -->
+    <a href="chokkarecipe.html" class="card">
+      <img src="https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_960,w_960//InstamartAssets/litti_chokha.webp?updatedAt=1727157685190" alt="Litti Chokha">
+      <h3>Litti Chokha</h3>
+      <p>Category: Bihari Style</p>
+    </a>
+  </div>
+</section>
+
+
+  <!-- View Recipe Page -->
+  <section class="page" id="view-recipe">
+    <h2>Chocolate Cake</h2>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxJLLh2wM17_V7R0VI9BDQ_laVFm973vC-ApNUIHcw55Yuj5l0J-_jh-jv&s=10" alt="Recipe Image" class="recipe-img">
+    <p><strong>Description:</strong> A rich and moist chocolate cake.</p>
+    <h3>Ingredients</h3>
+    <ul>
+      <li>2 cups flour</li>
+      <li>2 cup sugar</li>
+      <li>1 cup cocoa powder</li>
+      <li>1/2 baking powder</li>
+      <li>1 cup baking soda</li>
+      <li>3 Large Eggs </li>
+      <li>1/2 cup sour cream</li>
+      <li>2 tsp Vanilla Extract</li>
+    </ul>
+    <h3>Instructions</h3>
+    <p>To make a chocolate cake, simply mix the dry ingredients (flour, cocoa, sugar, baking powder, baking soda, salt) in a bowl, then whisk the wet ingredients (eggs or condensed milk, oil or butter, milk, vanilla) separately. Combine them into a smooth batter, pour into a greased tin, and bake at 180°C (350°F) for about 30 minutes until set. Let it cool, then finish with frosting or ganache for a delicious treat.</p>
+  </section>
+
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchBar = document.querySelector(".search-bar");
+    const grid = document.querySelector(".grid");
+
+    // Fetch recipes from TheMealDB API
+    async function fetchRecipes(query) {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
+      const data = await response.json();
+      return data.meals;
+    }
+
+    // Display recipes dynamically
+    function displayRecipes(recipes) {
+      grid.innerHTML = "";
+      if (!recipes) {
+        grid.innerHTML = "<p>No recipes found.</p>";
+        return;
+      }
+      recipes.forEach(recipe => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.innerHTML = `
+          <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}">
+          <h3>${recipe.strMeal}</h3>
+          <p>Category: ${recipe.strCategory}</p>
+        `;
+        grid.appendChild(card);
+
+        // Click to view full recipe
+        card.addEventListener("click", () => {
+          document.getElementById("view-recipe").innerHTML = `
+            <h2>${recipe.strMeal}</h2>
+            <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" class="recipe-img">
+            <p><strong>Description:</strong> ${recipe.strInstructions}</p>
+            <h3>Ingredients</h3>
+            <ul>
+              ${Object.keys(recipe)
+                .filter(key => key.startsWith("strIngredient") && recipe[key])
+                .map((key, i) => `<li>${recipe[key]} - ${recipe["strMeasure" + (i+1)]}</li>`)
+                .join("")}
+            </ul>
+          `;
+        });
+      });
+    }
+
+    // Search functionality
+    searchBar.addEventListener("keyup", async function () {
+      const query = searchBar.value.trim();
+      if (query.length > 0) {
+        const recipes = await fetchRecipes(query);
+        displayRecipes(recipes);
+      } else {
+        grid.innerHTML = "<p>Type a recipe name to search.</p>";
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
